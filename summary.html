@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>কাব্যগ্রন্থের তথ্য ও লাইন সংখ্যা বিশ্লেষণ</title>
+    <style>
+        body {
+            font-family: 'Kalpurush', 'Siyam Rupali', 'SolaimanLipi', sans-serif;
+            color: #2d3748;
+            line-height: 1.6;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            border-bottom: 3px solid #1a365d;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1a365d;
+            font-size: 24px;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Dashboard Stats Styling */
+        .dashboard-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-card.accent {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+        }
+
+        .stat-val {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card.accent .stat-val {
+            color: #38a169;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #4a5568;
+            font-weight: bold;
+        }
+
+        /* Main Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .data-table th {
+            background-color: #1a365d;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding: 12px;
+            border: 1px solid #1a365d;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        
+        .total-row {
+            background-color: #edf2f7 !important;
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        .book-title {
+            color: #2b6cb0;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .author {
+            color: #4a5568;
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #edf2f7;
+            color: #2b6cb0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .note-section {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .note-title {
+            color: #dd6b20;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .note-section p {
+            margin: 0;
+            font-size: 14px;
+            color: #744210;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>বাংলা কাব্যগ্রন্থের তথ্য ও লাইনের সংখ্যা বিশ্লেষণ</h1>
+        <p class="subtitle">১৫টি নির্বাচিত কালজয়ী গ্রন্থের কবিতার সংখ্যা ও সামগ্রিক লাইনের পরিসংখ্যান</p>
+    </div>
+
+    <table class="dashboard-table">
+        <tr>
+            <td class="stat-card">
+                <div class="stat-val">১৫টি</div>
+                <div class="stat-label">মোট কাব্যগ্রন্থ</div>
+            </td>
+            <td class="stat-card">
+                <div class="stat-val">৪৩২টি</div>
+                <div class="stat-label">মোট কবিতা ও আখ্যান খণ্ড</div>
+            </td>
+            <td class="stat-card accent">
+                <div class="stat-val">১৮,৫২৮টি</div>
+                <div class="stat-label">সর্বমোট লাইনের সংখ্যা</div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 5%; text-align:center;">ক্র.</th>
+                <th style="width: 35%;">কাব্যগ্রন্থ ও লেখক</th>
+                <th style="width: 20%; text-align:center;">কবিতার সংখ্যা</th>
+                <th style="width: 20%;">কবিতা প্রতি গড় লাইন</th>
+                <th style="width: 20%; text-align:center;">মোট লাইন (আনুমানিক)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:center;">১</td>
+                <td>
+                    <div class="book-title">নকশী কাঁথার মাঠ (১৯২৯)</div>
+                    <div class="author">জসীমউদ্দীন</div>
+                </td>
+                <td style="text-align:center;">১টি <span class="badge">আখ্যানকাব্য</span></td>
+                <td>১৪টি খণ্ডে সম্পূর্ণ গল্প</td>
+                <td style="text-align:center; font-weight:bold;">৮৫০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">২</td>
+                <td>
+                    <div class="book-title">সোজন বাদিয়ার ঘাট (১৯৩৩)</div>
+                    <div class="author">জসীমউদ্দীন</div>
+                </td>
+                <td style="text-align:center;">১টি <span class="badge">আখ্যানকাব্য</span></td>
+                <td>দীর্ঘ কাহিনী-কবিতা</td>
+                <td style="text-align:center; font-weight:bold;">৯০০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৩</td>
+                <td>
+                    <div class="book-title">রাখালী (১৯২৭)</div>
+                    <div class="author">জসীমউদ্দীন</div>
+                </td>
+                <td style="text-align:center;">১৪টি</td>
+                <td>৪২.৫ লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৫৯৫</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৪</td>
+                <td>
+                    <div class="book-title">বালুচর (১৯৩০)</div>
+                    <div class="author">জসীমউদ্দীন</div>
+                </td>
+                <td style="text-align:center;">২৫টি</td>
+                <td>৩০টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৭৫০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৫</td>
+                <td>
+                    <div class="book-title">হাসু (১৯৩৮)</div>
+                    <div class="author">জসীমউদ্দীন</div>
+                </td>
+                <td style="text-align:center;">১৮টি <span class="badge">শিশুতোষ</span></td>
+                <td>২১টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৩৭৮</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৬</td>
+                <td>
+                    <div class="book-title">সোনালী কাবিন (১৯৭৩)</div>
+                    <div class="author">আল মাহমুদ</div>
+                </td>
+                <td style="text-align:center;">৪০টি</td>
+                <td>২০টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৮০০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৭</td>
+                <td>
+                    <div class="book-title">রূপসী বাংলা</div>
+                    <div class="author">জীবনানন্দ দাশ</div>
+                </td>
+                <td style="text-align:center;">৬২টি <span class="badge">সনেট</span></td>
+                <td>১৪টি সুনির্দিষ্ট লাইন</td>
+                <td style="text-align:center; font-weight:bold;">৮৬৮</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৮</td>
+                <td>
+                    <div class="book-title">মেঘনাদবধ কাব্য</div>
+                    <div class="author">মাইকেল মধুসূদন দত্ত</div>
+                </td>
+                <td style="text-align:center;">১টি <span class="badge">মহাকাব্য</span></td>
+                <td>৯টি সর্গে বিভক্ত</td>
+                <td style="text-align:center; font-weight:bold;">৫,২০০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">৯</td>
+                <td>
+                    <div class="book-title">ছাড়পত্র</div>
+                    <div class="author">সুকান্ত ভট্টাচার্য</div>
+                </td>
+                <td style="text-align:center;">২৩টি</td>
+                <td>৩৫.৫ লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৮১৬.৫</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১০</td>
+                <td>
+                    <div class="book-title">প্রথম গান দ্বিতীয় মৃত্যুর আগে</div>
+                    <div class="author">শামসুর রাহমান</div>
+                </td>
+                <td style="text-align:center;">৩৮টি</td>
+                <td>৪০টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">১,৫২০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১১</td>
+                <td>
+                    <div class="book-title">কখনো আসেনিঃ নিজের জন্য</div>
+                    <div class="author">নির্মলেন্দু গুণ</div>
+                </td>
+                <td style="text-align:center;">৪৫টি (গড়)</td>
+                <td>২৭.৫ লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">১,২৩৭.৫</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১২</td>
+                <td>
+                    <div class="book-title">যে তুমি হরণ করো</div>
+                    <div class="author">মহাদেব সাহা</div>
+                </td>
+                <td style="text-align:center;">৪৭টি (গড়)</td>
+                <td>২১টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৯৮৭</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১৩</td>
+                <td>
+                    <div class="book-title">উল্টোরথ</div>
+                    <div class="author">পূর্ণেন্দু পত্রী</div>
+                </td>
+                <td style="text-align:center;">৩৩টি (গড়)</td>
+                <td>২৫টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">৮২৫</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১৪</td>
+                <td>
+                    <div class="book-title">তুমি ছুঁয়ে দিলে</div>
+                    <div class="author">রুদ্র মুহাম্মদ শহীদুল্লাহ</div>
+                </td>
+                <td style="text-align:center;">৫০টি</td>
+                <td>৩০টি lijn (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">১,৫০০</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">১৫</td>
+                <td>
+                    <div class="book-title">সবুজ মাঠের ভেতর দিয়ে</div>
+                    <div class="author">সুনীল গঙ্গোপাধ্যায়</div>
+                </td>
+                <td style="text-align:center;">৩৭টি (গড়)</td>
+                <td>৩৫টি লাইন (গড়)</td>
+                <td style="text-align:center; font-weight:bold;">১,২৯৫</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2" style="text-align: right; padding-right:15px;">সর্বমোট হিসাব:</td>
+                <td style="text-align:center;">~ ৪৩২টি</td>
+                <td>-</td>
+                <td style="text-align:center; font-size:16px; color:#c53030;">১৮,৫২৮টি লাইন</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note-section">
+        <div class="note-title">পরিসংখ্যান ও পদ্ধতিগত নোট:</div>
+        <p>
+            ১. <strong>মহাকাব্যের প্রভাব:</strong> মোট লাইনের সংখ্যার একটি বিশাল অংশ (প্রায় ২৮%) দখল করে আছে মাইকেল মধুসূদন দত্তের 'মেঘনাদবধ কাব্য' (৫,২০০ লাইন)।<br>
+            ২. <strong>গড় হিসাবের ভিত্তি:</strong> আধুনিক গদ্যছন্দ এবং মুক্তক পরিমাপের কবিতাগুলোর কোনো নির্দিষ্ট লাইনের সীমা না থাকায়, প্রতিটি কাব্যের সর্বনিম্ন ও সর্বোচ্চ সীমার গাণিতিক গড় (Arithmetic Mean) ধরে এই সামগ্রিক যোগফলটি প্রস্তুত করা হয়েছে।
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
